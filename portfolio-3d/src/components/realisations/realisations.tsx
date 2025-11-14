@@ -150,6 +150,7 @@ type Project = {
   year: string;
   tags: string[];
   gradient: string;
+  link: string;
 };
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -182,14 +183,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           animate={{ opacity: isHovered ? 1 : 0 }}
           className="absolute inset-0 bg-black/60 flex items-center justify-center"
         >
-          <motion.button
+          <Link href={project.link}>
+            <motion.button
+          
             initial={{ scale: 0 }}
             animate={{ scale: isHovered ? 1 : 0 }}
             transition={{ delay: 0.1 }}
             className="px-6 py-3 bg-[#10b981] text-black font-bold rounded-full hover:bg-[#10b981]/90"
           >
             Voir le projet
+            
           </motion.button>
+            </Link>
+          
         </motion.div>
       </div>
 
@@ -225,25 +231,29 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       category: "Web Design",
       year: "2024",
       tags: ["Next.js", "Stripe", "Tailwind"],
-      gradient: "from-blue-500 to-purple-600"
+      gradient: "from-blue-500 to-purple-600",
+      link: "https://akambiconsulting.com/"
     },
     {
       id: 2,
       title: "Portfolio 3D",
-      description: "Portfolio interactif avec animations Three.js",
+      description: "Portfolio interactif avec animations ",
       category: "3D Design",
-      year: "2024",
-      tags: ["Three.js", "React", "GSAP"],
-      gradient: "from-green-500 to-teal-600"
+      year: "2025",
+      tags: ["Next.js", "Tailwindcss", "Three.js"],
+      gradient: "from-green-500 to-teal-600",
+      link: "https://my-portofolio-delphine-fomnvuth7-kpankpand-2711s-projects.vercel.app"
     },
     {
       id: 3,
       title: "Mobile Banking App",
-      description: "Application bancaire avec interface intuitive",
+      description: "Application Govisa avec interface intuitive",
       category: "Application",
-      year: "2023",
-      tags: ["React Native", "Firebase", "UI/UX"],
-      gradient: "from-orange-500 to-red-600"
+      year: "2025",
+      tags: ["Flutter", "Bootstrap", "UI/UX"],
+      gradient: "from-orange-500 to-red-600",
+      link: "https://govisa-stg-5527065b3b0a.herokuapp.com/fr"
+      
     },
     {
       id: 4,
@@ -252,7 +262,8 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       category: "Branding",
       year: "2023",
       tags: ["Logo", "Charte", "Print"],
-      gradient: "from-pink-500 to-purple-600"
+      gradient: "from-pink-500 to-purple-600",
+      link: "/"
     },
     {
       id: 5,
@@ -261,7 +272,8 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       category: "UI/UX",
       year: "2024",
       tags: ["Figma", "React", "Chart.js"],
-      gradient: "from-cyan-500 to-blue-600"
+      gradient: "from-cyan-500 to-blue-600",
+      link: "/"
     },
     {
       id: 6,
@@ -270,7 +282,8 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       category: "Web Design",
       year: "2023",
       tags: ["Next.js", "Video.js", "AWS"],
-      gradient: "from-yellow-500 to-orange-600"
+      gradient: "from-yellow-500 to-orange-600",
+      link: "/"
     }
   ];
 

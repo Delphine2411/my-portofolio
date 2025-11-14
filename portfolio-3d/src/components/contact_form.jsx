@@ -226,10 +226,21 @@ export default function ContactSection() {
   initial={{ x: -80, opacity: 0 }}
   animate={{ x: 0, opacity: 1 }}
   transition={{ duration: 1, ease: "easeOut" }}
-  className="fixed left-15 mt-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 text-[#10b981] text-4xl z-50"
+  className="
+    fixed 
+    left-2 sm:left-4 lg:left-6 
+    top-auto sm:top-1/2 sm:-translate-y-1/2 
+    bottom-4 sm:bottom-auto
+    flex flex-row sm:flex-col 
+    items-center 
+    gap-4 sm:gap-6 
+    text-[#10b981] 
+    text-2xl sm:text-3xl lg:text-4xl 
+    z-50
+  "
 >
-  {/* Ligne décorative */}
-  <div className="w-[2px] h-20 bg-[#10b981]/50 mb-2" />
+  {/* Ligne décorative (visible seulement sur desktop) */}
+  <div className="hidden sm:block w-[2px] h-20 bg-[#10b981]/50 mb-2" />
 
   {/* Icônes */}
   <Link
@@ -250,10 +261,7 @@ export default function ContactSection() {
     <FaLinkedin className="cursor-pointer hover:text-white hover:scale-125 transition-transform duration-300" />
   </Link>
 
-  <Link
-    href="mailto:delphinekpankpan11@gmail.com"
-    aria-label="Envoyer un email"
-  >
+  <Link href="mailto:delphinekpankpan11@gmail.com" aria-label="Envoyer un email">
     <FaEnvelope className="cursor-pointer hover:text-white hover:scale-125 transition-transform duration-300" />
   </Link>
 
@@ -266,16 +274,14 @@ export default function ContactSection() {
     <FaFacebook className="cursor-pointer hover:text-white hover:scale-125 transition-transform duration-300" />
   </Link>
 
-  <Link
-    href="tel:+22943832687"
-    aria-label="Appeler Delphine Kpankpan"
-  >
+  <Link href="tel:+22943832687" aria-label="Appeler Delphine Kpankpan">
     <FaPhone className="cursor-pointer hover:text-white hover:scale-125 transition-transform duration-300" />
   </Link>
 
-  {/* Ligne décorative */}
-  <div className="w-[2px] h-20 bg-[#10b981]/50 mt-2" />
+  {/* Ligne décorative (visible seulement sur desktop) */}
+  <div className="hidden sm:block w-[2px] h-20 bg-[#10b981]/50 mt-2" />
 </motion.div>
+
 
         {/* Grille du formulaire */}
         <div className="grid md:grid-cols-[1fr,1.2fr] gap-6 mt-8">

@@ -9,10 +9,10 @@ type StatKey = "projects" | "clients" | "awards" | "Months";
 function StatsSection() {
   const [counts, setCounts] = useState<Record<StatKey, number>>({ projects: 0, clients: 0, awards: 0, Months: 0 });
   const stats: { label: string; value: number; key: StatKey }[] = [
-    { label: "Projects Completed", value: 1, key: "projects" },
-    { label: "Happy Clients", value: 1, key: "clients" },
-    { label: "Awards Won", value: 2, key: "awards" },
-    { label: "Years Experience", value: 1, key: "Months" }
+    { label: "Projets finis", value: 1, key: "projects" },
+    { label: "Clients heureux", value: 1, key: "clients" },
+    { label: "Projets personnel", value: 2, key: "awards" },
+    { label: "Années d'expériences", value: 1, key: "Months" }
   ];
 
   useEffect(() => {

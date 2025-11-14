@@ -2,157 +2,112 @@
 
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+//mport { useLanguage } from ""; // ton contexte
+import { useLanguage } from "@/src/components/contexts/language_context";
 import * as THREE from "three";
 
+
+const footerText = {
+  fr: {
+    title1: "CONSTRUISONS",
+    title2: "QUELQUE CHOSE D’EXCEPTIONNEL",
+    subtitle: "N’hésitez pas à me contacter pour vos projets, collaborations ou simplement pour échanger quelques idées.",
+    circleText: "DISPONIBLE POUR DES PROJETS • DISPONIBLE POUR DES PROJETS •",
+    contact: "ME CONTACTER",
+    whatsapp: "WHATSAPP",
+    follow: "SUIVEZ-MOI",
+    rights: "Tous droits réservés",
+    design: "Design & Développement",
+    powered: "Propulsé par",
+  },
+
+  en: {
+    title1: "LET’S BUILD",
+    title2: "SOMETHING EXCEPTIONAL",
+    subtitle: "Feel free to contact me for projects, collaborations, or just to share ideas.",
+    circleText: "AVAILABLE FOR PROJECTS • AVAILABLE FOR PROJECTS •",
+    contact: "CONTACT ME",
+    whatsapp: "WHATSAPP",
+    follow: "FOLLOW ME",
+    rights: "All rights reserved",
+    design: "Design & Development",
+    powered: "Powered by",
+  },
+
+  es: {
+    title1: "CONSTRUYAMOS",
+    title2: "ALGO EXCEPCIONAL",
+    subtitle: "No dudes en contactarme para proyectos, colaboraciones o simplemente para compartir ideas.",
+    circleText: "DISPONIBLE PARA PROYECTOS • DISPONIBLE PARA PROYECTOS •",
+    contact: "CONTACTARME",
+    whatsapp: "WHATSAPP",
+    follow: "SÍGUEME",
+    rights: "Todos los derechos reservados",
+    design: "Diseño & Desarrollo",
+    powered: "Desarrollado con",
+  },
+};
+
 export default function Footer() {
-  const canvasRef = useRef(null);
+  const { language: lang } = useLanguage();
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  // --- Ton animation Three.js ---
   useEffect(() => {
-    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // 🎬 Configuration de la scène Three.js
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      canvas.clientWidth / canvas.clientHeight,
       0.1,
-      1000
+      100
     );
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
-      alpha: true,
-      antialias: true,
-    });
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
     camera.position.z = 5;
 
-    // 💡 Lumières
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-    scene.add(ambientLight);
+    const geometry = new THREE.TorusKnotGeometry(1, 0.3, 150, 20);
+    const material = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
 
-    const pointLight = new THREE.PointLight(0x10b981, 2, 100);
-    pointLight.position.set(0, 0, 5);
-    scene.add(pointLight);
-
-    // 🌀 Création du torus (cercle 3D)
-    const torusGeometry = new THREE.TorusGeometry(2, 0.1, 16, 100);
-    const torusMaterial = new THREE.MeshStandardMaterial({
-      color: 0x10b981,
-      metalness: 0.7,
-      roughness: 0.3,
-      emissive: 0x10b981,
-      emissiveIntensity: 0.3,
-    });
-    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-    torus.rotation.x = Math.PI / 4;
-    scene.add(torus);
-
-    // ✨ Particules flottantes
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 150;
-    const positions = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 15;
-    }
-    particlesGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(positions, 3)
-    );
-    const particlesMaterial = new THREE.PointsMaterial({
-      color: 0x10b981,
-      size: 0.03,
-      transparent: true,
-      opacity: 0.7,
-    });
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
-
-    // 🔁 Animation
-    let time = 0;
     function animate() {
-      requestAnimationFrame(animate);
-      time += 0.01;
-
-      torus.rotation.y = time * 0.5;
-      torus.rotation.z = time * 0.3;
-      particles.rotation.y = time * 0.1;
-
-      pointLight.position.x = Math.sin(time) * 3;
-      pointLight.position.y = Math.cos(time) * 3;
-
+      if (!canvas) return;
+      mesh.rotation.x += 0.002;
+      mesh.rotation.y += 0.003;
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
       renderer.render(scene, camera);
+      requestAnimationFrame(animate);
     }
     animate();
-
-    // 📱 Responsive
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      renderer.dispose();
-      torusGeometry.dispose();
-      torusMaterial.dispose();
-      particlesGeometry.dispose();
-      particlesMaterial.dispose();
-    };
   }, []);
-
-  // 🔤 Animations Framer Motion
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
 
   return (
     <footer className="relative bg-gradient-to-b from-gray-900 to-black text-white overflow-hidden">
-      {/* 🎨 Canvas 3D en arrière-plan */}
+      {/* Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 opacity-20"
         style={{ width: "100%", height: "100%" }}
       />
 
-      {/* 🌐 Contenu du footer */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="grid md:grid-cols-2 gap-12 items-start"
-        >
-          {/* 🎯 Bloc gauche */}
-          <motion.div variants={itemVariants} className="space-y-6">
+
+        {/* --- TITRES --- */}
+        <motion.div className="grid md:grid-cols-2 gap-12 items-start">
+          <motion.div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-              CONSTRUISONS<br />
-              QUELQUE CHOSE D’EXCEPTIONNEL
+              {footerText[lang].title1} <br /> {footerText[lang].title2}
             </h2>
+
             <p className="text-gray-400 text-sm">
-              N’hésitez pas à me contacter pour vos projets, collaborations ou
-              simplement pour échanger quelques idées.
+              {footerText[lang].subtitle}
             </p>
           </motion.div>
 
-          {/* 🔁 Cercle animé */}
-          <motion.div
-            variants={itemVariants}
-            className="flex justify-end items-center"
-          >
+          {/* Cercle animé */}
+          <motion.div className="flex justify-end items-center">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -165,12 +120,14 @@ export default function Footer() {
                     d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
                   />
                 </defs>
+
                 <text className="text-[10px] fill-[#10b981] font-semibold tracking-wider">
                   <textPath href="#circlePath">
-                    DISPONIBLE POUR DES PROJETS • DISPONIBLE POUR DES PROJETS •
+                    {footerText[lang].circleText}
                   </textPath>
                 </text>
               </svg>
+
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
                   whileHover={{ scale: 1.1 }}
@@ -183,18 +140,12 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* 📬 Informations de contact */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="grid md:grid-cols-3 gap-8 mt-8 pt-12 border-t border-gray-800"
-        >
+        {/* --- CONTACT --- */}
+        <motion.div className="grid md:grid-cols-3 gap-8 mt-8 pt-12 border-t border-gray-800">
           {/* Email */}
-          <motion.div variants={itemVariants}>
+          <motion.div>
             <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-3">
-              ME CONTACTER
+              {footerText[lang].contact}
             </h3>
             <motion.a
               href="mailto:kpankpand@gmail.com"
@@ -205,10 +156,10 @@ export default function Footer() {
             </motion.a>
           </motion.div>
 
-          {/* Téléphone */}
-          <motion.div variants={itemVariants}>
+          {/* WhatsApp */}
+          <motion.div>
             <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-3">
-              WHATSAPP
+              {footerText[lang].whatsapp}
             </h3>
             <motion.a
               href="tel:+22961961587"
@@ -220,15 +171,15 @@ export default function Footer() {
           </motion.div>
 
           {/* Réseaux sociaux */}
-          <motion.div variants={itemVariants}>
+          <motion.div>
             <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-3">
-              SUIVEZ-MOI
+              {footerText[lang].follow}
             </h3>
             <div className="space-y-2">
               {["Facebook", "TikTok", "Instagram", "LinkedIn"].map((social) => (
                 <motion.a
                   key={social}
-                  href={`#${social.toLowerCase()}`}
+                  href="#"
                   whileHover={{ x: 5, color: "#10b981" }}
                   className="block text-lg transition-colors"
                 >
@@ -239,22 +190,17 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-          className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600"
-        >
-          <p>© 2025, Tous droits réservés</p>
+        {/* --- COPYRIGHT --- */}
+        <motion.div className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+          <p>© 2025, {footerText[lang].rights}</p>
+
           <div className="flex gap-4 mt-4 md:mt-0">
             <span>
-              Design & Développement :{" "}
-              <span className="text-[#10b981]">Awogbin Kpankpan</span>
+              {footerText[lang].design}:{" "}
+              <span className="text-[#10b981]">Delphine Kpankpan</span>
             </span>
             <span>
-              Propulsé par{" "}
+              {footerText[lang].powered}:{" "}
               <span className="text-[#10b981]">Next.js & Three.js</span>
             </span>
           </div>

@@ -105,7 +105,7 @@ export default function Navbar() {
         {/* LOGO */}
         <Link href="/">
           <h1 className="text-2xl font-bold cursor-pointer">
-            KLAD<span className="text-[#00FF66]">MOK</span>
+            KLAD<span className="text-[#10b981]">MOK</span>
           </h1>
         </Link>
 
@@ -123,7 +123,7 @@ export default function Navbar() {
                 <Link
                   href={link.path}
                   className={`cursor-pointer transition-colors ${
-                    isActive ? "text-[#00FF66]" : "hover:text-[#00FF66]"
+                    isActive ? "text-[#10b981]" : "hover:text-[#10b981]"
                   }`}
                 >
                   {link.name}
@@ -131,7 +131,7 @@ export default function Navbar() {
                 {isActive && (
                   <motion.div
                     layoutId="activeIndicator"
-                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-[#00FF66]"
+                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-[#10b981]"
                     initial={false}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
@@ -164,10 +164,10 @@ export default function Navbar() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setShowLangMenu(!showLangMenu)}
-              className="p-2 rounded-full bg-gray-800 hover:bg-[#00FF66]/20 transition-colors flex items-center gap-2"
+              className="p-2 rounded-full bg-gray-800 hover:bg-[#10b981]/20 transition-colors flex items-center gap-2"
               aria-label="Change language"
             >
-              <FiGlobe className="text-[#00FF66] text-xl" />
+              <FiGlobe className="text-[#10b981] text-xl" />
               <span className="text-sm font-semibold uppercase">{language}</span>
             </motion.button>
 
@@ -179,7 +179,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-2 w-40 bg-gray-900 border border-[#00FF66]/30 rounded-xl shadow-xl overflow-hidden"
+                  className="absolute right-0 mt-2 w-40 bg-gray-900 border border-[#10b981]/30 rounded-xl shadow-xl overflow-hidden"
                 >
                   {languages.map((lang) => (
                     <motion.button
@@ -187,7 +187,7 @@ export default function Navbar() {
                       whileHover={{ backgroundColor: "rgba(0, 255, 102, 0.1)" }}
                       onClick={() => changeLanguage(lang.code)}
                       className={`w-full px-4 py-3 text-left flex items-center gap-3 transition-colors ${
-                        language === lang.code ? "bg-[#00FF66]/20 text-[#00FF66]" : "text-white"
+                        language === lang.code ? "bg-#10b981]/20 text-[#10b981]" : "text-white"
                       }`}
                     >
                       <span className="text-xl">{lang.flag}</span>
@@ -234,7 +234,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#0b0c10]/95 border-t border-[#00FF66]/20 overflow-hidden"
+            className="md:hidden bg-[#0b0c10]/95 border-t border-[#10b981]/20 overflow-hidden"
           >
             <ul className="flex flex-col items-center gap-6 py-8 text-lg">
               {links.map((link) => {
@@ -243,8 +243,8 @@ export default function Navbar() {
                   <li key={link.key}>
                     <Link
                       href={link.path}
-                      className={`cursor-pointer transition-colors ${
-                        isActive ? "text-[#00FF66]" : "hover:text-[#00FF66]"
+                      className={`cursor-pointer transition-colors  ${
+                        isActive ? "text-[#10b981]" : "hover:text-[#10b981] text-white"
                       }`}
                       onClick={() => setIsOpen(false)}
                     >
@@ -264,7 +264,7 @@ export default function Navbar() {
                   onClick={() => changeLanguage(lang.code)}
                   className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
                     language === lang.code
-                      ? "bg-[#00FF66] text-black"
+                      ? "bg-[#10b981] text-black"
                       : "bg-gray-800 text-white hover:bg-gray-700"
                   }`}
                 >
