@@ -148,11 +148,11 @@ export default function Footer() {
               {footerText[lang].contact}
             </h3>
             <motion.a
-              href="mailto:kpankpand@gmail.com"
+              href="mailto:delphinekpankpan11@gmail.com"
               whileHover={{ x: 5, color: "#10b981" }}
               className="text-lg transition-colors"
             >
-              kpankpand@gmail.com
+              delphinekpankpan11@gmail.com
             </motion.a>
           </motion.div>
 
@@ -176,10 +176,10 @@ export default function Footer() {
               {footerText[lang].follow}
             </h3>
             <div className="space-y-2">
-              {["Facebook", "TikTok", "Instagram", "LinkedIn"].map((social) => (
+              {[ "LinkedIn"].map((social) => (
                 <motion.a
                   key={social}
-                  href="#"
+                  href="https://www.linkedin.com/in/delphine-kpankpan"
                   whileHover={{ x: 5, color: "#10b981" }}
                   className="block text-lg transition-colors"
                 >

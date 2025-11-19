@@ -17,7 +17,7 @@ const translations = {
       {
         name: "Denis NOUDEKE",
         role: "Responsable des stagiaires, Globodai",
-        text: "Collaboration fluide et résultats impressionnants. Je recommande vivement pour tout projet web.",
+        text: "Collaboration fluide et résultats impressionnants. Je recommande vivement pour toute entreprise.",
         rating: 5,
       },
       {
@@ -41,7 +41,7 @@ const translations = {
       {
         name: "Denis NOUDEKE",
         role: "Internship Manager, Globodai",
-        text: "Smooth collaboration and impressive results. Highly recommended for any web project.",
+        text: "Smooth collaboration and impressive results. I highly recommend for any business.",
         rating: 5,
       },
       {
@@ -65,7 +65,7 @@ const translations = {
       {
         name: "Denis NOUDEKE",
         role: "Responsable de pasantías, Globodai",
-        text: "Colaboración fluida y resultados impresionantes. Muy recomendable para cualquier proyecto web.",
+        text: "Colaboración fluida y resultados impresionantes. Lo recomiendo ampliamente para cualquier empresa.",
         rating: 5,
       },
       {
