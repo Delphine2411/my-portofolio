@@ -96,7 +96,7 @@ export default function Hero3D() {
         <h1 className="lg:text-5xl text-3xl font-bold">{text[lang].hello}</h1>
 
         {/* Job animé */}
-        <p className="lg:text-lg mt-3">
+        <p className="lg:text-lg mt-3 text-[#10b981]">
           <TypeAnimation
             key={lang}
             sequence={[text[lang].job]}
