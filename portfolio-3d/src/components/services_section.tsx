@@ -89,38 +89,63 @@ export default function ServicesSection() {
           return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 80, rotateY: -45 }}
-              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-              transition={{ duration: 1, delay: index * 0.2, type: "spring" }}
-              whileHover={{
-                rotateY: 10,
-                scale: 1.05,
-                boxShadow: "0px 0px 40px rgba(0,255,204,0.3)",
-              }}
-              className="bg-rgba(0,255,102,0.3) p-8 rounded-2xl text-center border border-[#10b981] shadow-lg hover:shadow-cyan-400/30 transition-all duration-300"
+              initial="initial"
+              whileInView="visible"
+              whileHover="hovered"
+              viewport={{ once: true }}
+              className="relative p-8 rounded-2xl text-center border border-[#10b981] shadow-lg overflow-hidden perspective-1000 flex flex-col h-full"
             >
-              <div className="flex justify-center mb-6">
-                <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                  className="w-20 h-20 flex items-center justify-center bg-[#1a0f3d] rounded-full shadow-inner"
-                >
-                  <Icon size={40} className="text-[#10b981]" />
-                </motion.div>
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-              <p className="text-gray-400 mb-6 leading-relaxed">{service.description}</p>
-              <Link href="/contact">
-                <motion.button
-                  whileHover={{
+              {/* Background Layer with 3D Rotation */}
+              <motion.div
+                className="absolute inset-0 bg-[#0a0a0a] bg-opacity-40 z-0 origin-center"
+                variants={{
+                  initial: { opacity: 0, scale: 0.8 },
+                  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: index * 0.2 } },
+                  hovered: {
+                    rotateY: 15,
+                    rotateX: 5,
                     scale: 1.1,
-                    boxShadow: "0 0 20px rgba(0,255,204,0.6)",
-                  }}
-                  className="px-6 py-2 bg-[#10b981] text-black font-semibold rounded-full shadow-lg hover:bg-cyan-400 transition-all"
-                >
-                  {t.button}
-                </motion.button>
-              </Link>
+                    boxShadow: "0px 0px 40px rgba(16, 185, 129, 0.2)",
+                    backgroundColor: "rgba(16, 185, 129, 0.1)",
+                  }
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              />
+
+              {/* Fixed Content Section */}
+              <motion.div
+                className="relative z-10 flex flex-col h-full"
+                variants={{
+                  initial: { opacity: 0, y: 50 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: index * 0.2 + 0.2 } },
+                  hovered: { scale: 1.02 }
+                }}
+              >
+                <div className="flex justify-center mb-6">
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                    className="w-20 h-20 flex items-center justify-center bg-[#1a0f3d] rounded-full shadow-inner border border-[#10b981]/30"
+                  >
+                    <Icon size={40} className="text-[#10b981]" />
+                  </motion.div>
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-white">{service.title}</h3>
+                <p className="text-gray-400 mb-6 leading-relaxed flex-grow">{service.description}</p>
+                <div className="mt-auto">
+                  <Link href="/contact">
+                    <motion.button
+                      whileHover={{
+                        scale: 1.1,
+                        boxShadow: "0 0 20px rgba(16, 185, 129, 0.6)",
+                      }}
+                      className="px-6 py-2 bg-[#10b981] text-black font-semibold rounded-full shadow-lg hover:bg-emerald-400 transition-all font-inter"
+                    >
+                      {t.button}
+                    </motion.button>
+                  </Link>
+                </div>
+              </motion.div>
             </motion.div>
           );
         })}

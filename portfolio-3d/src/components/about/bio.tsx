@@ -88,7 +88,7 @@ function BioSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-[#00FF66]/10 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
-                  <img src="/image/agent.png" alt="Kladmok" className="w-full h-full object-cover" />
+                  <img src="/image/da.png" alt="Kladmok" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-16 -right-16">
                 <div className="w-64 h-64 bg-[#00FF66]/30 rounded-full blur-3xl animate-pulse" />

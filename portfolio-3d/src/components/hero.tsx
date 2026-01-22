@@ -102,21 +102,24 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* --- IMAGE RESPONSIVE --- */}
+          {/* --- IMAGE RESPONSIVE --- */}
         <div className="relative flex items-center justify-center w-[400px] h-[500px]">
           {/* --- Conteneur de l'image --- */}
 
-          <img src="/image/copilot.png" alt="Kladmok" className="w-full h-full objet-cover" />
-          {/* --- Premier demi-cercle (entre) --- */}
-
-
+          <div className="relative w-70 h-70 rounded-full p-[3px] bg-gradient-to-br from-[#00FF66]/20 to-gray-800 animate-spin-slow">
+            <img
+              src="/image/del.png"
+              alt="Delphine KPANKPAN"
+              className="w-full h-full rounded-full object-cover shadow-lg border-[3px] border-transparent"
+            />
+          </div>
           {/* --- Second demi-cercle (sort, rotation inverse) --- */}
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-            className="absolute w-[450px] h-[450px] rounded-full border-b-[6px] border-[#10b981] border-l-transparent border-r-transparent border-t-transparent"
+            className="absolute w-[320px] h-[320px] rounded-full border-b-[6px] border-[#10b981] border-l-transparent border-r-transparent border-t-transparent"
             style={{
-              //boxShadow: "0 0 20px rgba(0,255,102,0.3)",
+              boxShadow: "0 0 20px rgba(0,255,102,0.3)",
             }}
           ></motion.div>
         </div>

@@ -104,8 +104,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-white">
         {/* LOGO */}
         <Link href="/">
-          <h1 className="text-2xl font-bold cursor-pointer">
-            KLAD<span className="text-[#10b981]">MOK</span>
+          <h1 className="text-4xl font-bold cursor-pointer">
+            K . <span className="text-[#10b981]">Delphine</span>
           </h1>
         </Link>
 

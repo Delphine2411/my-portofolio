@@ -9,25 +9,25 @@ type StatKey = "projects" | "clients" | "awards" | "Months";
 const translations = {
   fr: {
     stats: [
-      { label: "Projets finis", value: 1, key: "projects" },
-      { label: "Clients heureux", value: 1, key: "clients" },
-      { label: "Projets personnels", value: 2, key: "awards" },
+      { label: "Projets finis", value: 4, key: "projects" },
+      { label: "Clients heureux", value: 4, key: "clients" },
+      { label: "Projets personnels", value: 3, key: "awards" },
       { label: "Années d'expérience", value: 1, key: "Months" },
     ],
   },
   en: {
     stats: [
-      { label: "Completed Projects", value: 1, key: "projects" },
-      { label: "Happy Clients", value: 1, key: "clients" },
-      { label: "Personal Projects", value: 2, key: "awards" },
+      { label: "Completed Projects", value: 4, key: "projects" },
+      { label: "Happy Clients", value: 4, key: "clients" },
+      { label: "Personal Projects", value: 3, key: "awards" },
       { label: "Years of Experience", value: 1, key: "Months" },
     ],
   },
   es: {
     stats: [
-      { label: "Proyectos terminados", value: 1, key: "projects" },
-      { label: "Clientes satisfechos", value: 1, key: "clients" },
-      { label: "Proyectos personales", value: 2, key: "awards" },
+      { label: "Proyectos terminados", value: 4, key: "projects" },
+      { label: "Clientes satisfechos", value: 4, key: "clients" },
+      { label: "Proyectos personales", value: 3, key: "awards" },
       { label: "Años de experiencia", value: 1, key: "Months" },
     ],
   },

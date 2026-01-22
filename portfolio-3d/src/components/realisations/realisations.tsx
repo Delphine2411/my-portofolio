@@ -47,7 +47,7 @@ function HeroSection() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, alpha: true, antialias: true });
-    
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     camera.position.z = 5;
@@ -63,29 +63,29 @@ function HeroSection() {
     scene.add(pointLight2);
 
     // Cubes flottants
-        const cubes: THREE.Mesh[] = [];
-        for (let i = 0; i < 10; i++) {
-          const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-          const material = new THREE.MeshStandardMaterial({
-            color: i % 2 === 0 ? 0x00FF66 : 0xff6b35,
-            metalness: 0.8,
-            roughness: 0.2
-          });
-          const cube = new THREE.Mesh(geometry, material);
-          cube.position.set(
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10
-          );
-          scene.add(cube);
-          cubes.push(cube);
-        }
+    const cubes: THREE.Mesh[] = [];
+    for (let i = 0; i < 10; i++) {
+      const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+      const material = new THREE.MeshStandardMaterial({
+        color: i % 2 === 0 ? 0x00FF66 : 0xff6b35,
+        metalness: 0.8,
+        roughness: 0.2
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10
+      );
+      scene.add(cube);
+      cubes.push(cube);
+    }
 
     let time = 0;
     function animate() {
       requestAnimationFrame(animate);
       time += 0.01;
-      
+
       cubes.forEach((cube, i) => {
         cube.rotation.x = time * (0.5 + i * 0.1);
         cube.rotation.y = time * (0.3 + i * 0.1);
@@ -122,7 +122,7 @@ function HeroSection() {
           transition={{ duration: 0.8 }}
           className="text-6xl md:text-8xl font-bold text-white mb-6"
         >
-           {t.heroTitle1} <span className="text-[#10b981]">{t.heroTitle}</span>
+          {t.heroTitle1} <span className="text-[#10b981]">{t.heroTitle}</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -156,11 +156,10 @@ export function FilterSection({ activeFilter, setActiveFilter }: FilterSectionPr
               onClick={() => setActiveFilter(filter)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 rounded-full font-semibold transition-all ${
-                activeFilter === filter
+              className={`px-6 py-3 rounded-full font-semibold transition-all ${activeFilter === filter
                   ? "bg-[#10b981] text-black shadow-lg shadow-[#10b981]/50"
                   : "bg-gray-800 text-white hover:bg-gray-700"
-              }`}
+                }`}
             >
               {filter}
             </motion.button>
@@ -202,10 +201,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileHover={{ y: -10 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group relative bg-gray-800 rounded-3xl overflow-hidden cursor-pointer"
+      className="group relative bg-gray-800 rounded-3xl overflow-hidden cursor-pointer flex flex-col h-full"
     >
       {/* Image du projet */}
-      <div className="relative h-64 bg-gradient-to-br from-[#10b981]/20 to-gray-900 overflow-hidden">
+      <div className="relative h-64 bg-gradient-to-br from-[#10b981]/20 to-gray-900 overflow-hidden shrink-0">
         <motion.div
           animate={{ scale: isHovered ? 1.1 : 1 }}
           transition={{ duration: 0.4 }}
@@ -213,7 +212,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         >
           <div className={`w-32 h-32 rounded-full bg-gradient-to-r ${gradient} blur-2xl`} />
         </motion.div>
-        
+
         {/* Overlay au hover */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -222,22 +221,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         >
           <Link href={link}>
             <motion.button
-          
-            initial={{ scale: 0 }}
-            animate={{ scale: isHovered ? 1 : 0 }}
-            transition={{ delay: 0.1 }}
-            className="px-6 py-3 bg-[#10b981] text-black font-bold rounded-full hover:bg-[#10b981]/90"
-          >
-            {t.viewProject}
-            
-          </motion.button>
-            </Link>
-          
+
+              initial={{ scale: 0 }}
+              animate={{ scale: isHovered ? 1 : 0 }}
+              transition={{ delay: 0.1 }}
+              className="px-6 py-3 bg-[#10b981] text-black font-bold rounded-full hover:bg-[#10b981]/90"
+            >
+              {t.viewProject}
+
+            </motion.button>
+          </Link>
+
         </motion.div>
       </div>
 
       {/* Contenu */}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-3 py-1 bg-[#10b981]/20 text-[#10b981] text-xs font-semibold rounded-full">
             {project.category}
@@ -246,7 +245,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
         <p className="text-gray-400 mb-4">{project.description}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-auto">
           {tags.map((tag) => (
             <span key={tag} className="px-3 py-1 bg-gray-700 text-gray-300 text-xs rounded-full">
               {tag}
@@ -261,198 +260,233 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 // Section Projets avec grille
 
 
- function ProjectsSection({ activeFilter }: { activeFilter: string }) {
+function ProjectsSection({ activeFilter }: { activeFilter: string }) {
   const translations = {
-  fr: {
-    categories: {
-      all: "Tous",
-      web: "Web Design",
-      app: "Application",
-      branding: "Branding",
-      uiux: "UI/UX",
-      three: "3D Design",
-    },
-    projects: [
-      {
-        id: 1,
-        title: "Plateforme E-Commerce",
-        description: "Une plateforme d'apprentissage moderne avec paiement intégré",
-        category: "Application",
+    fr: {
+      categories: {
+        all: "Tous",
+        web: "Web Design",
+        app: "Application",
+        branding: "Branding",
+        uiux: "UI/UX",
+        three: "3D Design",
       },
-      {
-        id: 2,
-        title: "Portfolio 3D",
-        description: "Portfolio interactif avec animations",
-        category: "3D Design",
-      },
-      {
-        id: 3,
-        title: "Application web pour les visas et voyages",
-        description: "Application Govisa avec interface intuitive",
-        category: "Application",
-      },
-      {
-        id: 4,
-        title: "Application web pour les entrepreneurs",
-        description: "Propulser les idées d’entreprise des startups grâce aux mentors, aux experts ou à des agents IA.",
-        category: "Application",
-      },
-      ///{
-       // id: 5,
-       // title: "Dashboard Analytics",
-        //description: "Interface d'analyse de données en temps réel",
-        //category: "UI/UX",
-     // },
-     // {
-       // id: 6,
+      projects: [
+        {
+          id: 1,
+          title: "Plateforme E-Commerce",
+          description: "Une plateforme d'apprentissage moderne avec paiement intégré",
+          category: "Application",
+        },
+        {
+          id: 2,
+          title: "Portfolio 3D",
+          description: "Portfolio interactif avec animations",
+          category: "3D Design",
+        },
+        {
+          id: 3,
+          title: "Application web pour les visas et voyages",
+          description: "Application Govisa avec interface intuitive",
+          category: "Application",
+        },
+        {
+          id: 4,
+          title: "Un site web",
+          description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.",
+          category: "Aplication",
+        },
+        {
+          id: 5,
+          title: "Application web pour les entrepreneurs",
+          description: "Propulser les idées d’entreprise des startups grâce aux mentors, aux experts ou à des agents IA.",
+          category: "Application",
+        },
+        {
+          id: 6,
+          title: "Portfolio 3D",
+          description: "Site web 3D interactif pour la presentation de la structure MINDSET-TIC.",
+          category: "Web Design",
+        },
+        //{
+        // id: 6,
         //title: "Plateforme de Streaming",
         //description: "Plateforme de streaming vidéo avec lecteur personnalisé",
-       // category: "Web Design",
-      //},
-    ],
-  },
-  en: {
-    categories: {
-      all: "All",
-      web: "Web Design",
-      app: "Application",
-      branding: "Branding",
-      uiux: "UI/UX",
-      three: "3D Design",
+        // category: "Web Design",
+        //},
+      ],
     },
-    projects: [
-      {
-        id: 1,
-        title: "E-Commerce Platform",
-        description: "A modern learning platform with integrated payment",
-        category: "Application",
+    en: {
+      categories: {
+        all: "All",
+        web: "Web Design",
+        app: "Application",
+        branding: "Branding",
+        uiux: "UI/UX",
+        three: "3D Design",
       },
-      {
-        id: 2,
-        title: "3D Portfolio",
-        description: "Interactive portfolio with animations",
-        category: "3D Design",
-      },
-      {
-        id: 3,
-        title: "Web application for visas and travel",
-        description: "Govisa app with intuitive interface",
-        category: "Application",
-      },
-      {
-        id: 4,
-        title: "Web application for entrepreneurs",
-        description: "Boosting startup business ideas with mentors, experts, or AI agents.",
-        category: "Application",
-      },
-     // {
-       // id: 5,
-        //title: "Dashboard Analytics",
-        //description: "Real-time data analytics interface",
-        //category: "UI/UX",
-     // },
-      //{
+      projects: [
+        {
+          id: 1,
+          title: "E-Commerce Platform",
+          description: "A modern learning platform with integrated payment",
+          category: "Application",
+        },
+        {
+          id: 2,
+          title: "3D Portfolio",
+          description: "Interactive portfolio with animations",
+          category: "3D Design",
+        },
+        {
+          id: 3,
+          title: "Web application for visas and travel",
+          description: "Govisa app with intuitive interface",
+          category: "Application",
+        },
+        {
+          id: 4,
+          title: "Un site web pour l'enfant d'or",
+          description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.",
+          category: "Aplicación",
+        },
+
+        {
+          id: 5,
+          title: "Web application for entrepreneurs",
+          description: "Boosting startup business ideas with mentors, experts, or AI agents.",
+          category: "Application",
+        },
+        {
+          id: 6,
+          title: "3D Portfolio",
+          description: "Interactive 3D website for presenting the MINDSET-TIC structure.",
+          category: "Web Design"
+        },
+
+        //{
         //id: 6,
         //title: "Streaming Platform",
-       // description: "Video streaming platform with custom player",
-       // category: "Web Design",
-      //},
-    ],
-  },
-  es: {
-    categories: {
-      all: "Todos",
-      web: "Diseño Web",
-      app: "Aplicación",
-      branding: "Branding",
-      uiux: "UI/UX",
-      three: "Diseño 3D",
+        // description: "Video streaming platform with custom player",
+        // category: "Web Design",
+        //},
+      ],
     },
-    projects: [
-      {
-        id: 1,
-        title: "Plataforma E-Commerce",
-        description: "Una plataforma de aprendizaje moderna con pago integrado",
-        category: "Diseño Web",
+    es: {
+      categories: {
+        all: "Todos",
+        web: "Diseño Web",
+        app: "Aplicación",
+        branding: "Branding",
+        uiux: "UI/UX",
+        three: "Diseño 3D",
       },
-      {
-        id: 2,
-        title: "Portafolio 3D",
-        description: "Portafolio interactivo con animaciones",
-        category: "Diseño 3D",
-      },
-      {
-        id: 3,
-        title: "Aplicación web para visas y viajes",
-        description: "Aplicación Govisa con interfaz intuitiva",
-        category: "Aplicación",
-      },
-      {
-        id: 4,
-        title: "Aplicación web para emprendedores",
-        description: "Impulsar las ideas empresariales de las startups con mentores, expertos o agentes de IA.",
-        category: "Aplicación",
-      },
-     // {
-       // id: 5,
-       // title: "Dashboard de Analítica",
-       // description: "Interfaz de análisis de datos en tiempo real",
-       // category: "UI/UX",
-      //},
-     // {
-       // id: 6,
-       // title: "Plataforma de Streaming",
+      projects: [
+        {
+          id: 1,
+          title: "Plataforma E-Commerce",
+          description: "Una plataforma de aprendizaje moderna con pago integrado",
+          category: "Diseño Web",
+        },
+        {
+          id: 2,
+          title: "Portafolio 3D",
+          description: "Portafolio interactivo con animaciones",
+          category: "Diseño 3D",
+        },
+        {
+          id: 3,
+          title: "Aplicación web para visas y viajes",
+          description: "Aplicación Govisa con interfaz intuitiva",
+          category: "Aplicación",
+        },
+        {
+          id: 4,
+          title: "Un site web",
+          description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.",
+          category: "Aplicación",
+        },
+        {
+          id: 5,
+          title: "Aplicación web para emprendedores",
+          description: "Impulsar las ideas empresariales de las startups con mentores, expertos o agentes de IA.",
+          category: "Aplicación",
+        },
+        {
+          id: 6,
+          title: "Portafolio 3D",
+          description: "Sitio web 3D interactivo para la presentación de la estructura MINDSET-TIC.",
+          category: "Diseño Web"
+        },
+
+        // {
+        // id: 6,
+        // title: "Plataforma de Streaming",
         //description: "Plataforma de video con reproductor personalizado",
         //category: "Diseño Web",
-     // },
-    ],
-  },
-};
+        // },
+      ],
+    },
+  };
 
-const projectMeta = [
-  {
-    id: 1,
-    year: "2025",
-    tags: ["Next.js", "UI/UX", "Tailwindcss"],
-    gradient: "from-blue-500 to-purple-600",
-    link: "https://akambiconsulting.com/",
-  },
-  {
-    id: 2,
-    year: "2025",
-    tags: ["Next.js", "Tailwindcss", "Three.js"],
-    gradient: "from-green-500 to-teal-600",
-    link: "https://my-portofolio-delphine.vercel.app/",
-  },
-  {
-    id: 3,
-    year: "2025",
-    tags: ["Next.js", "Tailwindcss", "UI/UX"],
-    gradient: "from-orange-500 to-red-600",
-    link: "https://govisa-stg-5527065b3b0a.herokuapp.com/fr",
-  },
-  {
-    id: 4,
-    year: "2025",
-    tags: ["Next.js", "Tailwindcss", "UI/UX"],
-    gradient: "from-pink-500 to-purple-600",
-    link: "https://startup-mentor-stg-d27dfe3fd64e.herokuapp.com/",
-  },
- // {
-   // id: 5,
-   // year: "2024",
-   // tags: ["Figma", "React", "Chart.js"],
-   // gradient: "from-cyan-500 to-blue-600",
-   // link: "/",
- // },
- // {
-  //  id: 6,
-   // year: "2023",
-  //  tags: ["Next.js", "Video.js", "AWS"],
-  //  gradient: "from-yellow-500 to-orange-600",
-   // link: "/",
- // },
-];
+  const projectMeta = [
+    {
+      id: 1,
+      year: "2025",
+      tags: ["Next.js", "UI/UX", "Tailwindcss"],
+      gradient: "from-blue-500 to-purple-600",
+      link: "https://akambiconsulting.com/",
+    },
+    {
+      id: 2,
+      year: "2025",
+      tags: ["Next.js", "Tailwindcss", "Three.js"],
+      gradient: "from-green-500 to-teal-600",
+      link: "https://aga-l8lv.vercel.app/",
+    },
+    {
+      id: 3,
+      year: "2025",
+      tags: ["Next.js", "Tailwindcss", "Three.js"],
+      gradient: "from-green-500 to-teal-600",
+      link: "https://govisa-stg-5527065b3b0a.herokuapp.com/fr",
+    },
+    {
+      id: 4,
+      year: "2025",
+      tags: ["Next.js", "Tailwindcss", "UI/UX"],
+      gradient: "from-orange-500 to-red-600",
+      link: "https://leo-pi-woad.vercel.app/",
+    },
+    {
+      id: 5,
+      year: "2025",
+      tags: ["Next.js", "Tailwindcss", "UI/UX"],
+      gradient: "from-pink-500 to-purple-600",
+      link: "https://startup-mentor-stg-d27dfe3fd64e.herokuapp.com/",
+    },
+    {
+      id: 6,
+      year: "2025",
+      tags: ["Next.js", "Tailwindcss", "UI/UX"],
+      gradient: "from-pink-500 to-blue-600",
+      link: "https://mindsettic.vercel.app/",
+    },
+    // {
+    // id: 5,
+    // year: "2024",
+    // tags: ["Figma", "React", "Chart.js"],
+    // gradient: "from-cyan-500 to-blue-600",
+    // link: "/",
+    // },
+    // {
+    //  id: 6,
+    // year: "2023",
+    //  tags: ["Next.js", "Video.js", "AWS"],
+    //  gradient: "from-yellow-500 to-orange-600",
+    // link: "/",
+    // },
+  ];
   const { language } = useLanguage();
   const t = translations[language];
 
