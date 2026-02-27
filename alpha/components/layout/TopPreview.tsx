@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
-export default function TopPreview() {
+export default function TopPreview({ setActive }: { setActive: (id: string) => void }) {
   return (
     <div className="min-h-[400px] lg:h-[40%] flex flex-col items-start justify-center px-6 lg:px-12 py-12 lg:py-0 bg-white dark:bg-[#111318] relative transition-colors overflow-hidden">
 
@@ -38,9 +38,12 @@ export default function TopPreview() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="justify-center items-center gap-4 pt-4"
+          className="gap-4 pt-4 flex justify-center"
         >
-          <button className="px-8 py-3.5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-black font-bold text-sm flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-purple-500/10">
+          <button
+            onClick={() => setActive("Projets")}
+            className="px-8 py-3.5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-black font-bold text-sm flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-purple-500/10"
+          >
             Voir mes Projets
             <ArrowUpRight size={18} />
           </button>

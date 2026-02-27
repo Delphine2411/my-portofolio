@@ -1,9 +1,16 @@
-"use client"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Send, MapPin, Mail, Phone, Github, Linkedin, MessageSquare, CheckCircle2 } from "lucide-react"
 
-import { motion } from "framer-motion"
-import { Send, MapPin, Mail, Phone, Github, Linkedin, MessageSquare } from "lucide-react"
+export default function FullContactSection({ setActive }: { setActive?: (id: string) => void }) {
+    const [selectedTag, setSelectedTag] = useState("Nouveau Projet")
+    const [isSent, setIsSent] = useState(false)
 
-export default function FullContactSection() {
+    const handleSubmit = () => {
+        setIsSent(true)
+        setTimeout(() => setIsSent(false), 3000)
+    }
+
     return (
         <div className="py-8 space-y-12">
             <div className="max-w-2xl">
@@ -41,7 +48,11 @@ export default function FullContactSection() {
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/20 pl-1">Sujet de Conversation</label>
                         <div className="flex flex-wrap gap-2">
                             {["Nouveau Projet", "Collaboration", "Question", "Autre"].map(tag => (
-                                <button key={tag} className="px-4 py-2 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-500 dark:text-white/40 hover:bg-purple-500/10 hover:text-purple-500 transition-all">
+                                <button
+                                    key={tag}
+                                    onClick={() => setSelectedTag(tag)}
+                                    className={`px-4 py-2 rounded-xl border transition-all text-xs font-bold ${selectedTag === tag ? 'bg-purple-500 text-white border-purple-500' : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-500 dark:text-white/40 hover:bg-purple-500/10 hover:text-purple-500'}`}
+                                >
                                     {tag}
                                 </button>
                             ))}
@@ -57,10 +68,31 @@ export default function FullContactSection() {
                         />
                     </div>
 
-                    <button className="px-10 py-5 rounded-3xl bg-slate-900 dark:bg-white text-white dark:text-black font-black text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-purple-500/20">
-                        Envoyer le Message
-                        <Send size={18} />
-                    </button>
+                    <div className="relative">
+                        <AnimatePresence mode="wait">
+                            {isSent ? (
+                                <motion.div
+                                    key="sent"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    className="flex items-center gap-3 text-emerald-500 font-black text-sm"
+                                >
+                                    <CheckCircle2 size={24} />
+                                    Message envoyé avec succès !
+                                </motion.div>
+                            ) : (
+                                <motion.button
+                                    key="button"
+                                    onClick={handleSubmit}
+                                    className="px-10 py-5 rounded-3xl bg-slate-900 dark:bg-white text-white dark:text-black font-black text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-purple-500/20"
+                                >
+                                    Envoyer le Message
+                                    <Send size={18} />
+                                </motion.button>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </motion.div>
 
                 {/* Contact info side */}
@@ -82,7 +114,12 @@ export default function FullContactSection() {
                             </div>
                             <div>
                                 <h4 className="text-sm font-bold text-slate-800 dark:text-white">Email</h4>
-                                <p className="text-xs text-slate-500 dark:text-white/40 font-medium mt-1">contact@alpha-studio.com</p>
+                                <a
+                                    href="mailto:contact@alpha-studio.com"
+                                    className="text-xs text-slate-500 dark:text-white/40 font-medium mt-1 hover:text-purple-500 transition-colors"
+                                >
+                                    contact@alpha-studio.com
+                                </a>
                             </div>
                         </div>
 
@@ -92,7 +129,12 @@ export default function FullContactSection() {
                             </div>
                             <div>
                                 <h4 className="text-sm font-bold text-slate-800 dark:text-white">Téléphone</h4>
-                                <p className="text-xs text-slate-500 dark:text-white/40 font-medium mt-1">+229 01 66 37 39 21</p>
+                                <a
+                                    href="tel:+2290166373921"
+                                    className="text-xs text-slate-500 dark:text-white/40 font-medium mt-1 hover:text-emerald-500 transition-colors"
+                                >
+                                    +229 01 66 37 39 21
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -100,10 +142,21 @@ export default function FullContactSection() {
                     <div className="space-y-4 px-4">
                         <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/20">Suivez-nous</h4>
                         <div className="flex gap-4">
-                            {[Github, Linkedin, MessageSquare].map((Icon, i) => (
-                                <button key={i} className="p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-400 hover:text-purple-500 hover:bg-purple-500/10 transition-all">
+                            {[
+                                { Icon: Github, href: "https://github.com/alpha-studio" },
+                                { Icon: Linkedin, href: "https://linkedin.com/company/alpha-studio" },
+                                { Icon: MessageSquare, href: "https://twitter.com/alpha_studio" }
+                            ].map(({ Icon, href }, i) => (
+                                <motion.a
+                                    key={i}
+                                    href={href}
+                                    target="_blank"
+                                    whileHover={{ scale: 1.1, backgroundColor: "rgba(168, 85, 247, 0.1)" }}
+                                    whileTap={{ scale: 0.9 }}
+                                    className="p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-400 hover:text-purple-500 transition-all flex items-center justify-center"
+                                >
                                     <Icon size={20} />
-                                </button>
+                                </motion.a>
                             ))}
                         </div>
                     </div>

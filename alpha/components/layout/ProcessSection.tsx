@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Search, PenTool, Code2, Rocket, CheckCircle2 } from "lucide-react"
 
-export default function ProcessSection() {
+export default function ProcessSection({ setActive }: { setActive: (id: string) => void }) {
     const [activeStep, setActiveStep] = useState(0)
 
     const steps = [
@@ -114,6 +114,7 @@ export default function ProcessSection() {
                 <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => setActive("Contact")}
                     className="w-full py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold shadow-lg shadow-purple-500/5 hover:opacity-90 transition-all"
                 >
                     Démarrer un Projet

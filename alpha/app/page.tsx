@@ -51,7 +51,7 @@ export default function Home() {
 
                 {/* 1. Hero / TopPreview - Order 1 on Mobile, Middle on Desktop */}
                 <div className="order-1 lg:col-start-2 lg:row-start-1 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-white/10 bg-white dark:bg-[#0f1115] transition-colors min-h-[400px] lg:h-[40%] flex flex-col shrink-0">
-                  <TopPreview />
+                  <TopPreview setActive={setActive} />
                 </div>
 
                 {/* 2. Process Section - Order 2 on Mobile, Left on Desktop */}
@@ -60,7 +60,7 @@ export default function Home() {
                     <h2 className="text-lg font-semibold uppercase tracking-wider text-slate-400 dark:text-white/40">Alpha</h2>
                     <ThemeToggle />
                   </div>
-                  <ProcessSection />
+                  <ProcessSection setActive={setActive} />
                 </div>
 
                 {/* 3. Equipe / CircularCarousel - Order 3 on Mobile, Right on Desktop */}
@@ -71,7 +71,7 @@ export default function Home() {
 
                 {/* 4. Timeline / Restons en contact - Order 4 on Mobile, Middle Bottom on Desktop */}
                 <div className="order-4 lg:col-start-2 lg:row-start-2 border-r border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0d0f13] transition-colors lg:h-[60%] flex flex-col shrink-0">
-                  <Timeline />
+                  <Timeline setActive={setActive} />
                 </div>
               </motion.div>
             ) : (
@@ -101,10 +101,10 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    {active === "Àpropos" && <AboutSection />}
-                    {active === "Services" && <ServicesSection />}
-                    {active === "Projets" && <ProjectsSection />}
-                    {active === "Contact" && <FullContactSection />}
+                    {active === "Àpropos" && <AboutSection setActive={setActive} />}
+                    {active === "Services" && <ServicesSection setActive={setActive} />}
+                    {active === "Projets" && <ProjectsSection setActive={setActive} />}
+                    {active === "Contact" && <FullContactSection setActive={setActive} />}
                   </motion.div>
                 </div>
               </motion.div>
