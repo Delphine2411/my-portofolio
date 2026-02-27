@@ -5,7 +5,7 @@ import { Sparkles } from "lucide-react"
 
 import TeamSection from "./TeamSection"
 
-export default function AboutSection() {
+export default function AboutSection({ setActive }: { setActive?: (id: string) => void }) {
     const stats = [
         { label: "Projets", value: "14+", size: "w-48 h-48 lg:w-72 lg:h-72", z: "z-10", opacity: "bg-orange-500/10" },
         { label: "Expérience", value: "9.3+", size: "w-40 h-40 lg:w-56 lg:h-56", z: "z-20", opacity: "bg-orange-500/20" },
@@ -28,13 +28,16 @@ export default function AboutSection() {
                     <p className="text-slate-600 dark:text-white/40 text-lg leading-relaxed">
                         Alpha Studio est un collectif de designers et développeurs passionnés par l&apos;innovation numérique. Nous aidons les entreprises à transformer leur vision en réalité tangible.
                     </p>
-                    <div className="flex items-center gap-4 pt-4">
+                    <div
+                        onClick={() => setActive?.("Contact")}
+                        className="flex items-center gap-4 pt-4 cursor-pointer group"
+                    >
                         <div className="flex -space-x-4">
                             {[1, 2, 3, 4].map(i => (
-                                <div key={i} className="w-12 h-12 rounded-full border-4 border-white dark:border-[#14161c] bg-slate-200 dark:bg-white/10" />
+                                <div key={i} className="w-12 h-12 rounded-full border-4 border-white dark:border-[#14161c] bg-slate-200 dark:bg-white/10 group-hover:border-orange-500/30 transition-all" />
                             ))}
                         </div>
-                        <p className="text-sm font-bold text-slate-500 dark:text-white/30 tracking-widest uppercase">Rencontrez l&apos;équipe</p>
+                        <p className="text-sm font-bold text-slate-500 dark:text-white/30 tracking-widest uppercase group-hover:text-orange-500 transition-colors">Rencontrez l&apos;équipe</p>
                     </div>
                 </motion.div>
 

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Monitor, Smartphone, Palette, Zap, Cpu, BarChart3 } from "lucide-react"
 
-export default function ServicesSection() {
+export default function ServicesSection({ setActive }: { setActive?: (id: string) => void }) {
     const services = [
         {
             icon: <Palette className="text-pink-500" />,

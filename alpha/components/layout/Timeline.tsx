@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Mail, Phone, ExternalLink } from "lucide-react"
 
-export default function Timeline() {
+export default function Timeline({ setActive }: { setActive?: (id: string) => void }) {
   const contacts = [
     {
       icon: <Mail className="text-purple-500" size={24} />,
