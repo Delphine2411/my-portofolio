@@ -7,6 +7,7 @@ import ProcessSection from './process_section';
 import TestimonialSection from './testimonials_section';
 import * as THREE from 'three';
 import Link from 'next/link';
+import Image from 'next/image';
 import CTASection from './cta_section';
 
 const translations = {
@@ -14,21 +15,21 @@ const translations = {
     heroTitle1: "Mes",
     heroTitle: "Réalisations",
     heroSubtitle: "Découvrez mes projets créatifs et innovants",
-    filters: ["Tous", "Web Design", "Application", "3D Design", "UI/UX", "Branding"],
+    filters: ["Tous", "Front-End", "FullStack", "Backend", "UI/UX", "3D Design"],
     viewProject: "Voir le projet",
   },
   en: {
     heroTitle1: "My",
     heroTitle: "Projects",
     heroSubtitle: "Explore my creative and innovative works",
-    filters: ["All", "Web Design", "Application", "3D Design", "UI/UX", "Branding"],
+    filters: ["All", "Front-End", "FullStack", "Backend", "UI/UX", "3D Design"],
     viewProject: "View Project",
   },
   es: {
     heroTitle1: "Mis",
     heroTitle: "Proyectos",
     heroSubtitle: "Descubre mis proyectos creativos e innovadores",
-    filters: ["Todos", "Diseño Web", "Aplicación", "Diseño 3D", "UI/UX", "Branding"],
+    filters: ["Todos", "Front-End", "FullStack", "Backend", "UI/UX", "3D Design"],
     viewProject: "Ver Proyecto",
   },
 };
@@ -157,8 +158,8 @@ export function FilterSection({ activeFilter, setActiveFilter }: FilterSectionPr
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`px-6 py-3 rounded-full font-semibold transition-all ${activeFilter === filter
-                  ? "bg-[#10b981] text-black shadow-lg shadow-[#10b981]/50"
-                  : "bg-gray-800 text-white hover:bg-gray-700"
+                ? "bg-[#10b981] text-black shadow-lg shadow-[#10b981]/50"
+                : "bg-gray-800 text-white hover:bg-gray-700"
                 }`}
             >
               {filter}
@@ -180,6 +181,7 @@ type Project = {
   tags?: string[];
   gradient?: string;
   link?: string;
+  image?: string;
 };
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -194,7 +196,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 1, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -210,7 +212,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           transition={{ duration: 0.4 }}
           className="w-full h-full flex items-center justify-center"
         >
-          <div className={`w-32 h-32 rounded-full bg-gradient-to-r ${gradient} blur-2xl`} />
+          <Image
+            src={project.image || ''}
+            alt={project.title}
+            width={800}
+            height={600}
+            className="w-full h-full object-cover"
+          />
         </motion.div>
 
         {/* Overlay au hover */}
@@ -265,166 +273,70 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
     fr: {
       categories: {
         all: "Tous",
-        web: "Web Design",
-        app: "Application",
-        branding: "Branding",
+        web: "Front-End",
+        app: "FullStack",
+        branding: "Backend",
         uiux: "UI/UX",
         three: "3D Design",
       },
       projects: [
-        {
-          id: 1,
-          title: "Plateforme E-Commerce",
-          description: "Une plateforme d'apprentissage moderne avec paiement intégré",
-          category: "Application",
-        },
-        {
-          id: 2,
-          title: "Portfolio 3D",
-          description: "Portfolio interactif avec animations",
-          category: "3D Design",
-        },
-        {
-          id: 3,
-          title: "Application web pour les visas et voyages",
-          description: "Application Govisa avec interface intuitive",
-          category: "Application",
-        },
-        {
-          id: 4,
-          title: "Un site web",
-          description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.",
-          category: "Aplication",
-        },
-        {
-          id: 5,
-          title: "Application web pour les entrepreneurs",
-          description: "Propulser les idées d’entreprise des startups grâce aux mentors, aux experts ou à des agents IA.",
-          category: "Application",
-        },
-        {
-          id: 6,
-          title: "Portfolio 3D",
-          description: "Site web 3D interactif pour la presentation de la structure MINDSET-TIC.",
-          category: "Web Design",
-        },
-        //{
-        // id: 6,
-        //title: "Plateforme de Streaming",
-        //description: "Plateforme de streaming vidéo avec lecteur personnalisé",
-        // category: "Web Design",
-        //},
+        { id: 1, title: "Plateforme E-Commerce", description: "Une plateforme d'apprentissage moderne avec paiement intégré", category: "Front-End" },
+        { id: 2, title: "Portfolio 3D", description: "Portfolio interactif avec animations", category: "FullStack", },
+        { id: 3, title: "Application web pour les visas et voyages", description: "Application Govisa avec interface intuitive", category: "Front-End" },
+        { id: 4, title: "Un site web", description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.", category: "3D Design" },
+        { id: 5, title: "Application web pour les entrepreneurs", description: "Propulser les idées d’entreprise des startups grâce aux mentors, aux experts ou à des agents IA.", category: "Front-End" },
+        { id: 6, title: "Portfolio 3D", description: "Site web 3D interactif pour la presentation de la structure MINDSET-TIC.", category: "3D Design" },
+        { id: 7, title: "Portfolio 3d", description: "Portfolio 3D interactif pour la presentation du profile de Denis N..", category: "3D Design" },
+        { id: 8, title: "Application web pour les voitures et motos", description: "Plateforme E-commerce pour la gestion de contrat d'achat/vente et troc de voiture et de moto", category: "FullStack" },
+        { id: 9, title: "Application web", description: "AgriLink est une plateforme numérique qui connecte les producteurs agricoles, les investisseurs et les consommateurs afin de dynamiser la chaîne de valeur agricole au Bénin.", category: "FullStack" },
+        { id: 10, title: "Site web pour Alpha Bcom", description: "Site web pour présenter les services de Alpha Bcom", category: "FullStack" },
+        { id: 11, title: "Site ebook de Boaz", description: "Site pour la vente de document", category: "FullStack" },
       ],
     },
     en: {
       categories: {
         all: "All",
-        web: "Web Design",
-        app: "Application",
-        branding: "Branding",
+        web: "Front-End",
+        app: "FullStack",
+        branding: "Backend",
         uiux: "UI/UX",
         three: "3D Design",
       },
       projects: [
-        {
-          id: 1,
-          title: "E-Commerce Platform",
-          description: "A modern learning platform with integrated payment",
-          category: "Application",
-        },
-        {
-          id: 2,
-          title: "3D Portfolio",
-          description: "Interactive portfolio with animations",
-          category: "3D Design",
-        },
-        {
-          id: 3,
-          title: "Web application for visas and travel",
-          description: "Govisa app with intuitive interface",
-          category: "Application",
-        },
-        {
-          id: 4,
-          title: "Un site web pour l'enfant d'or",
-          description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.",
-          category: "Aplicación",
-        },
-
-        {
-          id: 5,
-          title: "Web application for entrepreneurs",
-          description: "Boosting startup business ideas with mentors, experts, or AI agents.",
-          category: "Application",
-        },
-        {
-          id: 6,
-          title: "3D Portfolio",
-          description: "Interactive 3D website for presenting the MINDSET-TIC structure.",
-          category: "Web Design"
-        },
-
-        //{
-        //id: 6,
-        //title: "Streaming Platform",
-        // description: "Video streaming platform with custom player",
-        // category: "Web Design",
-        //},
+        { id: 1, title: "E-Commerce Platform", description: "A modern learning platform with integrated payment", category: "Front-End" },
+        { id: 2, title: "3D Portfolio", description: "Interactive portfolio with animations", category: "3D Design" },
+        { id: 3, title: "Web application for visas and travel", description: "Govisa app with intuitive interface", category: "Front-End" },
+        { id: 4, title: "A website", description: "An interface gathering the different social networks of l'enfant d'or.", category: "3D Design" },
+        { id: 5, title: "Web application for entrepreneurs", description: "Boosting startup business ideas with mentors, experts, or AI agents.", category: "Front-End" },
+        { id: 6, title: "3D Portfolio", description: "Interactive 3D website for presenting the MINDSET-TIC structure.", category: "3D Design" },
+        { id: 7, title: "3D Portfolio", description: "Interactive 3D portfolio for presenting Denis N.'s profile.", category: "3D Design" },
+        { id: 8, title: "Web application for cars and motorcycles", description: "E-commerce platform for purchase/sale contracts and car/motorcycle bartering management.", category: "FullStack" },
+        { id: 9, title: "Web application", description: "AgriLink is a digital platform connecting agricultural producers, investors, and consumers to boost the agricultural value chain in Benin.", category: "FullStack" },
+        { id: 10, title: "Website for Alpha Bcom", description: "Website to showcase Alpha Bcom's services.", category: "FullStack" },
+        { id: 11, title: "Boaz E-book website", description: "Website for selling documents.", category: "FullStack" },
       ],
     },
     es: {
       categories: {
         all: "Todos",
-        web: "Diseño Web",
-        app: "Aplicación",
-        branding: "Branding",
+        web: "Front-End",
+        app: "FullStack",
+        branding: "Backend",
         uiux: "UI/UX",
-        three: "Diseño 3D",
+        three: "3D Design",
       },
       projects: [
-        {
-          id: 1,
-          title: "Plataforma E-Commerce",
-          description: "Una plataforma de aprendizaje moderna con pago integrado",
-          category: "Diseño Web",
-        },
-        {
-          id: 2,
-          title: "Portafolio 3D",
-          description: "Portafolio interactivo con animaciones",
-          category: "Diseño 3D",
-        },
-        {
-          id: 3,
-          title: "Aplicación web para visas y viajes",
-          description: "Aplicación Govisa con interfaz intuitiva",
-          category: "Aplicación",
-        },
-        {
-          id: 4,
-          title: "Un site web",
-          description: "Une interface regroupant les differents reseaux sociaux de l'enfant d'or.",
-          category: "Aplicación",
-        },
-        {
-          id: 5,
-          title: "Aplicación web para emprendedores",
-          description: "Impulsar las ideas empresariales de las startups con mentores, expertos o agentes de IA.",
-          category: "Aplicación",
-        },
-        {
-          id: 6,
-          title: "Portafolio 3D",
-          description: "Sitio web 3D interactivo para la presentación de la estructura MINDSET-TIC.",
-          category: "Diseño Web"
-        },
-
-        // {
-        // id: 6,
-        // title: "Plataforma de Streaming",
-        //description: "Plataforma de video con reproductor personalizado",
-        //category: "Diseño Web",
-        // },
+        { id: 1, title: "Plataforma E-Commerce", description: "Una plataforma de aprendizaje moderna con pago integrado", category: "Front-End" },
+        { id: 2, title: "Portafolio 3D", description: "Portafolio interactivo con animaciones", category: "3D Design" },
+        { id: 3, title: "Aplicación web para visas y viajes", description: "Aplicación Govisa con interfaz intuitiva", category: "Front-End" },
+        { id: 4, title: "Un sitio web", description: "Una interfaz agrupando las diferentes redes sociales de l'enfant d'or.", category: "3D Design" },
+        { id: 5, title: "Aplicación web para emprendedores", description: "Impulsar las ideas empresariales de las startups con mentores, expertos o agentes de IA.", category: "Front-End" },
+        { id: 6, title: "Portafolio 3D", description: "Sitio web 3D interactivo para la presentación de la estructura MINDSET-TIC.", category: "3D Design" },
+        { id: 7, title: "Portafolio 3D", description: "Portafolio 3D interactivo para presentar el perfil de Denis N.", category: "3D Design" },
+        { id: 8, title: "Aplicación web para coches y motos", description: "Plataforma E-commerce para la gestión de contratos de compra/venta y trueque de coches y motos.", category: "FullStack" },
+        { id: 9, title: "Aplicación web", description: "AgriLink es una plataforma digital que conecta a productores agrícolas, inversores y consumidores para dinamizar la cadena de valor agrícola en Benín.", category: "FullStack" },
+        { id: 10, title: "Sitio web para Alpha Bcom", description: "Sitio web para presentar los servicios de Alpha Bcom.", category: "FullStack" },
+        { id: 11, title: "Sitio de E-book de Boaz", description: "Sitio para la venta de documentos.", category: "FullStack" },
       ],
     },
   };
@@ -434,58 +346,79 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       id: 1,
       year: "2025",
       tags: ["Next.js", "UI/UX", "Tailwindcss"],
-      gradient: "from-blue-500 to-purple-600",
+      image: "/image/akambi.png",
       link: "https://akambiconsulting.com/",
     },
     {
       id: 2,
       year: "2025",
       tags: ["Next.js", "Tailwindcss", "Three.js"],
-      gradient: "from-green-500 to-teal-600",
+      image: "/image/ad.png",
       link: "https://aga-l8lv.vercel.app/",
     },
     {
       id: 3,
       year: "2025",
       tags: ["Next.js", "Tailwindcss", "Three.js"],
-      gradient: "from-green-500 to-teal-600",
+      image: "/image/govisa.png",
       link: "https://govisa-stg-5527065b3b0a.herokuapp.com/fr",
     },
     {
       id: 4,
       year: "2025",
       tags: ["Next.js", "Tailwindcss", "UI/UX"],
-      gradient: "from-orange-500 to-red-600",
+      image: "/image/leo.png",
       link: "https://leo-pi-woad.vercel.app/",
     },
     {
       id: 5,
       year: "2025",
       tags: ["Next.js", "Tailwindcss", "UI/UX"],
-      gradient: "from-pink-500 to-purple-600",
+      image: "/image/startup.png",
       link: "https://startup-mentor-stg-d27dfe3fd64e.herokuapp.com/",
     },
     {
       id: 6,
       year: "2025",
       tags: ["Next.js", "Tailwindcss", "UI/UX"],
-      gradient: "from-pink-500 to-blue-600",
+      image: "/image/mindset.png",
       link: "https://mindsettic.vercel.app/",
     },
-    // {
-    // id: 5,
-    // year: "2024",
-    // tags: ["Figma", "React", "Chart.js"],
-    // gradient: "from-cyan-500 to-blue-600",
-    // link: "/",
-    // },
-    // {
-    //  id: 6,
-    // year: "2023",
-    //  tags: ["Next.js", "Video.js", "AWS"],
-    //  gradient: "from-yellow-500 to-orange-600",
-    // link: "/",
-    // },
+    {
+      id: 7,
+      year: "2024",
+      tags: ["Figma", "React", "Chart.js"],
+      image: "/image/denis.png",
+      link: "https://denis-psi.vercel.app/",
+    },
+    {
+      id: 8,
+      year: "2023",
+      tags: ["Next.js", "Video.js", "AWS"],
+      image: "/image/alpha.png",
+      link: "https://voiture.alphabcom.com/",
+    },
+    {
+      id: 9,
+      year: "2023",
+      tags: ["Next.js", "Video.js", "AWS"],
+      image: "/image/agri.png",
+      link: "https://agricollect-blue.vercel.app/",
+    },
+    {
+      id: 10,
+      year: "2023",
+      tags: ["Next.js", "Video.js", "AWS"],
+      image: "/image/alp.png",
+      link: "https://my-portofolio-peach-xi.vercel.app/",
+    },
+    {
+      id: 11,
+      year: "2023",
+      tags: ["Next.js", "Video.js", "AWS"],
+      image: "/image/boaz.png",
+      link: "https://hboaz.vercel.app/",
+    },
   ];
   const { language } = useLanguage();
   const t = translations[language];
