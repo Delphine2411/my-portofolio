@@ -398,13 +398,13 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       image: "/image/alpha.png",
       link: "https://voiture.alphabcom.com/",
     },
-    {
-      id: 9,
-      year: "2023",
-      tags: ["Next.js", "Video.js", "AWS"],
-      image: "/image/agri.png",
-      link: "https://agricollect-blue.vercel.app/",
-    },
+   // {
+   //   id: 9,
+   //   year: "2023",
+    //  tags: ["Next.js", "Video.js", "AWS"],
+    //  image: "/image/agri.png",
+    //  link: "https://agricollect-blue.vercel.app/",
+   // },
     {
       id: 10,
       year: "2023",
@@ -412,13 +412,13 @@ function ProjectsSection({ activeFilter }: { activeFilter: string }) {
       image: "/image/alp.png",
       link: "https://my-portofolio-peach-xi.vercel.app/",
     },
-    {
-      id: 11,
-      year: "2023",
-      tags: ["Next.js", "Video.js", "AWS"],
-      image: "/image/boaz.png",
-      link: "https://hboaz.vercel.app/",
-    },
+    //{
+     // id: 11,
+    //  year: "2023",
+    //  tags: ["Next.js", "Video.js", "AWS"],
+     // image: "/image/boaz.png",
+     // link: "https://hboaz.vercel.app/",
+    //},
   ];
   const { language } = useLanguage();
   const t = translations[language];
